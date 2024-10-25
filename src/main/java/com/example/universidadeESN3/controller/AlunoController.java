@@ -5,6 +5,7 @@ import com.example.universidadeESN3.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,11 @@ public class AlunoController {
     @GetMapping
     public ResponseEntity<List<Aluno>> buscarTodos() {
         return ResponseEntity.ok(alunoService.buscarTodos());
+    }
+
+    @PostMapping
+    public ResponseEntity<Aluno> salvarAluno(Aluno aluno){
+        return ResponseEntity.ok(alunoService.salvar(aluno));
     }
 
 
