@@ -14,4 +14,14 @@ public class Aluno {
     private String nome;
     @Enumerated(EnumType.STRING)
     private Genero genero;
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "id=" + id +
+                ", matricula=" + matricula +
+                ", nome='" + nome + '\'' +
+                ", genero=" + genero +
+                '}';
+    }
 }

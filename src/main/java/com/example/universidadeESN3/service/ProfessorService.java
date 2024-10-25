@@ -2,12 +2,14 @@ package com.example.universidadeESN3.service;
 
 import com.example.universidadeESN3.entity.Professor;
 import com.example.universidadeESN3.repository.ProfessorRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProfessorService implements IProfessorService {
 
     @Autowired
