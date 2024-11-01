@@ -4,9 +4,11 @@ import com.example.universidadeESN3.entity.Aluno;
 import com.example.universidadeESN3.repository.AlunoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -17,8 +19,14 @@ public class AlunoService implements IAlunoService {
 
     @Override
     public Aluno buscarPorId(Long id) {
+        Optional<Aluno> response = alunoRepository.findById(id);
+        if (response.isPresent()) {
+            return response.get();
+        }
         return null;
     }
+
+
 
     @Override
     public List<Aluno> buscarTodos() {
@@ -33,11 +41,17 @@ public class AlunoService implements IAlunoService {
 
     @Override
     public void atualizar(Aluno aluno) {
-
+        log.info("atualizar() - aluno:{}", aluno );
+        alunoRepository.save(aluno);
     }
 
     @Override
     public void excluir(Long id) {
+        alunoRepository.deleteById(id);
+    }
 
+    public void desativar(Aluno aluno) {
+        aluno.setActive(Boolean.FALSE);
+        alunoRepository.save(aluno);
     }
 }

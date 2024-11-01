@@ -15,6 +15,8 @@ public class Aluno {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
+    private Boolean active;
+
     @Override
     public String toString() {
         return "Aluno{" +

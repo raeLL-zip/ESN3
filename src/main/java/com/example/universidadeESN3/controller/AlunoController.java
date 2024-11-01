@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/aluno")
@@ -22,10 +23,51 @@ public class AlunoController {
         return ResponseEntity.ok(alunoService.buscarTodos());
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Aluno> buscarPorId(@PathVariable Long id){
+
+        Aluno response = alunoService.buscarPorId(id);
+        if (response != null) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public ResponseEntity<Aluno> salvarAluno(@RequestBody Aluno aluno){
         log.info("salvarAluno() - aluno:{}", aluno );
         return ResponseEntity.ok(alunoService.salvar(aluno));
+    }
+
+    @PutMapping()
+    public ResponseEntity<?> update(@RequestBody Aluno aluno){
+
+        Aluno response = alunoService.buscarPorId(aluno.getId());
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
+        alunoService.atualizar(aluno);
+        return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        Aluno response = alunoService.buscarPorId(id);
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
+        alunoService.excluir(id);
+        return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping("/inactive/{id}")
+    public ResponseEntity<?> desativar(@PathVariable Long id) {
+        Aluno response = alunoService.buscarPorId(id);
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
+        alunoService.desativar(response);
+        return ResponseEntity.ok(null);
     }
 
 
