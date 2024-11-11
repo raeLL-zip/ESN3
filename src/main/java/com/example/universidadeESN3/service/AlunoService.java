@@ -26,8 +26,6 @@ public class AlunoService implements IAlunoService {
         return null;
     }
 
-
-
     @Override
     public List<Aluno> buscarTodos() {
         return alunoRepository.findAll();
@@ -53,5 +51,10 @@ public class AlunoService implements IAlunoService {
     public void desativar(Aluno aluno) {
         aluno.setActive(Boolean.FALSE);
         alunoRepository.save(aluno);
+    }
+
+    public List<Aluno> buscarPorNome(String nome) {
+//        return alunoRepository.findByNome(nome);
+        return alunoRepository.findByNomeStartingWithIgnoreCase(nome);
     }
 }

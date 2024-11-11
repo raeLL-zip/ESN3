@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,16 @@ public class AlunoController {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(path = "/nome/{nome}")
+    public ResponseEntity<List<Aluno>> buscarPorNome(@PathVariable String nome){
+
+        List<Aluno> response = alunoService.buscarPorNome(nome);
+        if (response != null && !response.isEmpty()) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.ok(new ArrayList<>());
     }
 
     @PostMapping
